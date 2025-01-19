@@ -29,3 +29,17 @@ for i in range(350):
 cv2.imshow("Mask", better_mask)
 
 cv2.imwrite("rinoceronte_segmentado.jpg", better_mask)
+
+#Dice score
+
+segmentado = cv2.imread("rinoceronte_segmentado.jpg")
+
+ground_truth = cv2.imread("ground_truth_rinoceronte.jpg")
+
+dice_score = cv2.bitwise_not(cv2.bitwise_xor(segmentado, ground_truth))
+
+area_correta = np.sum(dice_score == 255)
+
+area_total = np.sum(dice_score == 255) + np.sum(dice_score == 0)
+
+print(area_correta/area_total)
